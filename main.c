@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 10:59:37 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/26 10:24:47 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/26 10:51:38 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int check_args(char **str)
 	}
 	else if (ft_strcmp(str[0], "cd") == 0)
 	{
-		swipe(str[1]);
+		set_cd(str);
 		return (1);
 	}
 	else if (ft_strcmp(*str, "setenv") == 0)
