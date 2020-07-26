@@ -6,13 +6,26 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 14:33:19 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/25 14:33:37 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/26 10:19:36 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	envLen(char **Data)
+static int	envLen(char *str)
+{
+	int x;
+
+	x = 0;
+	ft_putendl(str);
+	while (Data[x])
+	{
+		x++;
+	}
+	return (x);
+}
+
+static size_t Len(char **Data)
 {
 	int x;
 
@@ -24,38 +37,53 @@ static size_t	envLen(char **Data)
 	return (x);
 }
 
-void env_copy(char **env)
+static char **memory(int indexof)
 {
-	int x;
-
-	x = 0;
-	while(Data[x] != NULL)
-	{
-		env[x] = Data[x];
-		x++;
-	}
-	env[x] = NULL;
-}
-
-void env_setup(char *str, char *envval)
-{
-	char *tmp;
+	int i;
 	char **store;
 
+	i = -1;
 
-	store = (char **)malloc(sizeof(char *) * (envLen(Data) + 1));
-	env_copy(store);
-	free(Data);
-	Data = NULL;
-	Data = store;
-	tmp = ft_strjoin(str, ft_strjoin("=", envval));
-	Data[envLen(Data) + 1] = NULL;
-	Data[envLen(Data)] = tmp;
+	store = (char **)malloc(sizeof(char *) * (indexof + 1));
+
+	while (Data[++i] && i < indexof)
+	{
+		store[i] = ft_strdup(Data[i]);
+		free(Data[i]);
+	}
+	free(Data[i]);
+	return (store);
+}
+
+void	env_setup(char *str, char *envval)
+{
+	char *tmp;
+	int i;
+
+	i = envLen(str);
+	tmp = ft_strjoin("=", envval);
+	if (Data[i])
+	{
+		free(Data[i]);
+		if (envval)
+			Data[i] = ft_strjoin(str, tmp);
+		ft_putendl("here");
+	}
+	else
+	{
+		Data = memory(i + 1);
+		if (envval)
+		{
+			Data[i] = ft_strjoin(str, tmp);
+		}
+		Data[i + 1] = NULL;
+	}
+	free(tmp);
 }
 
 int checkStr(char **str)
 {
-	if (envLen(str) != 3)
+	if (Len(str) != 3)
 	{
 		ft_putendl("setenv : \033[0mtoo few or many arguments\36m ");
 		return (1);
@@ -63,3 +91,4 @@ int checkStr(char **str)
 	env_setup(str[1], str[2]);
 	return (0);
 }
+

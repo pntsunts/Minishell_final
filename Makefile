@@ -6,7 +6,7 @@
 #    By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/25 10:46:13 by pntsunts          #+#    #+#              #
-#    Updated: 2020/07/25 13:12:34 by pntsunts         ###   ########.fr        #
+#    Updated: 2020/07/26 10:17:21 by pntsunts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME = minishell
 
 FLAGS = -Wall -Werror -Wextra
 
-SRC = main.c get_next_line.c split.c
+SRC = main.c get_next_line.c split.c change.c ft_setenv.c ft_unsetenv.c 
 
-OBJ = main.o get_next_line.o split.o
+OBJ = main.o get_next_line.o split.o change.o ft_setenv.o ft_unsetenv.o 
 
 $(NAME) :
 		make -C ./libft/ libft.a

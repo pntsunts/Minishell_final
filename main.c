@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 10:59:37 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/25 13:13:28 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/26 10:24:47 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,26 @@ static int check_args(char **str)
 		printData();
 		return (1);
 	}
+	else if (ft_strcmp(str[0], "cd") == 0)
+	{
+		swipe(str[1]);
+		return (1);
+	}
+	else if (ft_strcmp(*str, "setenv") == 0)
+	{
+		checkStr(str);
+		return (1);
+	}
+	else if (ft_strcmp(*str, "unsetenv") == 0)
+	{
+		check(str);
+		return (1);
+	}
+	else if (ft_strcmp(*str, "pwd") == 0)
+	{
+		pwd();
+		return (1);
+	}
 	return (0);
 }
 
@@ -102,6 +122,19 @@ static char  **getData(char **str)
 	return (Data);
 }
 
+int free_str(char **str)
+{
+	int i = 0;
+
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return (0);
+}
+
 int main(int ac, char **av, char **str)
 {
 	int i = 0;
@@ -110,5 +143,6 @@ int main(int ac, char **av, char **str)
 	getData(str);
 	readFiles();
 	free(Data[i++]);
+	sleep(60);
 	return (0);
 }
