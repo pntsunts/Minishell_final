@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 14:33:19 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/26 10:19:36 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/26 13:29:59 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	envLen(char *str)
 	int x;
 
 	x = 0;
-	ft_putendl(str);
+	(void)str;
 	while (Data[x])
 	{
 		x++;
@@ -49,9 +49,7 @@ static char **memory(int indexof)
 	while (Data[++i] && i < indexof)
 	{
 		store[i] = ft_strdup(Data[i]);
-		free(Data[i]);
 	}
-	free(Data[i]);
 	return (store);
 }
 
@@ -67,7 +65,6 @@ void	env_setup(char *str, char *envval)
 		free(Data[i]);
 		if (envval)
 			Data[i] = ft_strjoin(str, tmp);
-		ft_putendl("here");
 	}
 	else
 	{

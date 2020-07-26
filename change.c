@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 13:17:40 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/26 11:22:47 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/26 13:27:32 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ char	*Get_cd(char *str)
 
 void pwd()
 {
-    char dir[4096];
+    char dir[1024];
 
-    getcwd(dir, 4096);
+    getcwd(dir, 1024);
 	ft_putendl(dir);
 }
 
 void swipe(char *new_path)
 {
-	char old_path[4096];
-	getcwd(old_path, 4096);
+	char old_path[1024];
+	getcwd(old_path, 1024);
 
 	if (chdir(new_path) < 0)
 	{
@@ -51,6 +51,7 @@ void swipe(char *new_path)
 		{
 			ft_putstr("minishell: cd: ");
 			ft_putstr(new_path);
+			ft_putstr("  hfhfhhf ");
 			ft_putendl(" : No such file or directory");
 		}
 		else
@@ -74,21 +75,24 @@ int set_cd(char **str)
 		swipe(path);
 		return (1);
 	}
-	else if (str[1][0] == '-' && !str[1][1])
+	else 
 	{
-		swipe(Get_cd("OLDPWD"));
-		return (1);
+	   	if (str[1][0] == '-' && !str[1][1])
+		{
+			swipe(Get_cd("OLDPWD"));
+			return (1);
+		}
+		else if (str[1][0] == '~' && str[1][1] == '/' && str[1][2])
+		{
+			swipe(&str[1][2]);
+			return (1);
+		}
+		else if (str[1][0] == '/' && str[1][1])
+		{
+			swipe(&str[1][1]);
+			return (1);
+		}
+		swipe(str[1]);
 	}
-	if (str[1][0] == '~' && str[1][1] == '/' && str[1][2])
-	{
-		swipe(&str[1][2]);
-		return (1);
-	}
-	else if (str[1][0] == '/' && str[1][1])
-	{
-		swipe(&str[1][1]);
-		return (1);
-	}
-	swipe(str[1]);
 	return (1);
 }
