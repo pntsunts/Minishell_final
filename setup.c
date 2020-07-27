@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 09:06:22 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/27 11:21:42 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:49:14 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 static size_t	length(char *str)
 {
 	int x;
-
-	x = 0;
 	char *tmp;
-	tmp = str;
+	x = 0;
+
 	while (Data[x] != NULL)
 	{
+		tmp = ft_strjoin(str, "=");
+		if (compare(Data[x], tmp) == 1)
+		{
+			free(tmp);
+			return (x);
+		}
+		free(tmp);
 		x++;
 	}
 	return (x);

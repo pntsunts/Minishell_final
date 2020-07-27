@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 09:09:31 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/27 09:13:11 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:54:10 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void env_unset(char *str)
 			del = Data[envLe(Data) - 1] = NULL;
 			free(del);
 		}
+		free(tmp);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 09:03:53 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/27 09:04:21 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 13:47:45 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static size_t	envLen(char **Data)
 	return (x);
 }
 
-void env_copy(char **env)
+/*void env_copy(char **env)
 {
 	int x;
 
@@ -51,7 +51,7 @@ void env_setup(char *str, char *envval)
 	tmp = ft_strjoin(str, ft_strjoin("=", envval));
 	Data[envLen(Data) + 1] = NULL;
 	Data[envLen(Data)] = tmp;
-}
+}*/
 
 int checkStr(char **str)
 {
@@ -60,6 +60,7 @@ int checkStr(char **str)
 		ft_putendl("setenv : \033[0mtoo few or many arguments\36m ");
 		return (1);
 	}
-	env_setup(str[1], str[2]);
+	//env_setup(str[1], str[2]);
+	setenv_cd(str[1], str[2]);
 	return (0);
 }

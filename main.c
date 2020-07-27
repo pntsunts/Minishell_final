@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 10:59:37 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/27 13:23:07 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:55:34 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ static void	readFiles(void)
 		str = getLines();
 		arg = split(str);
 		run = check_args(arg);
+		free(str);
+		free_str(arg);
 		if (run < 0)
 			return;
 	}
@@ -159,5 +161,6 @@ int main(int ac, char **av, char **str)
 	getData(str);
 	readFiles();
 	free(Data[i++]);
+	sleep(20);
 	return (0);
 }
