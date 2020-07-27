@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 11:05:26 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/26 08:54:56 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 09:32:49 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 char **Data;
 
+void setenv_cd(char *str, char *some);
 void set_envp(char *str, char *value);
 int		get_next_line(const int fd, char **line);
 size_t  dataLen(char **str);
@@ -44,6 +45,5 @@ int bin(char **str);
 int in_exec(char *str, char **arg);
 void swipe(char *new_path);
 int free_str(char **str);
-//void Path_unset(char *str);
 
 #endif

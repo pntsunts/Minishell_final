@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 10:59:37 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/26 13:43:37 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 13:23:07 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void printData()
 	}
 }
 
-static int check_args(char **str)
+int check_args(char **str)
 {
 	int run;
 
@@ -56,7 +56,7 @@ static int check_args(char **str)
 	}
 	else if (ft_strcmp(*str, "exit") == 0)
 	{
-		return (0);
+		return (-1);
 	}
 	else if (ft_strcmp(*str, "env") == 0)
 	{
@@ -65,7 +65,8 @@ static int check_args(char **str)
 	}
 	else if (ft_strcmp(str[0], "cd") == 0)
 	{
-		set_cd(str);
+		set_cd(str + 1);
+		//swipe(str[1]);
 		return (1);
 	}
 	else if (ft_strcmp(*str, "setenv") == 0)
@@ -91,23 +92,33 @@ static int check_args(char **str)
 	return (bin(str));
 }
 
+void print_stuff(char **v)
+{
+	int i = 0;
+
+	while (v[i])
+	{
+		ft_putendl(v[i]);
+		i++;
+	}
+}
+
 static void	readFiles(void)
 {
 	char	*str;
 	char	**arg;
 	int		run;
-	int		i = 0;
 
 	run = 1;
-	while (run)
+	while (run > 0)
 	{
 		ft_putstr("Wethinkcode\033[32m$>\033[36m ");
 		str = getLines();
 		arg = split(str);
 		run = check_args(arg);
-		free(str);
+		if (run < 0)
+			return;
 	}
-	free(arg[i++]);
 }
 
 static char  **getData(char **str)
