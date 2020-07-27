@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/25 14:20:55 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/26 13:40:06 by pntsunts         ###   ########.fr       */
+/*   Created: 2020/07/27 09:09:31 by pntsunts          #+#    #+#             */
+/*   Updated: 2020/07/27 09:13:11 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int compare(char *str1, char *str2)
 	return (1);
 
 }
+
 
 static size_t envLe(char **Data)
 {
@@ -55,30 +56,26 @@ void env_cop(char **env)
 
 void env_unset(char *str)
 {
+	char **store;
 	char *tmp;
 	int i = 0;
-	int j = 0;
-	char **store;
+	char *del;
+
 	store = (char **)malloc(sizeof(char *) * (envLe(Data) + 1));
 	env_cop(store);
 	free(Data);
 	Data = NULL;
-	Data = (char **)malloc(sizeof(char *) * (envLe(store) + 1));
-
-	while (store[i])
+	Data = store;
+	while (Data[i])
 	{
 		tmp = ft_strjoin(str, "=");
-		if (compare(store[i], tmp) == 1)
+		if (compare(Data[i], tmp) == 1)
 		{
-			i++;
+			del = Data[envLe(Data) - 1] = NULL;
+			free(del);
 		}
-		Data[j] = store[i];
-		j++;
 		i++;
-		free(tmp);
 	}
-	free(store);
-	Data[j] = NULL;
 }
 
 int check(char **str)

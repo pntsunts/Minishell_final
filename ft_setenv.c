@@ -5,27 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/25 14:33:19 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/26 13:29:59 by pntsunts         ###   ########.fr       */
+/*   Created: 2020/07/27 09:03:53 by pntsunts          #+#    #+#             */
+/*   Updated: 2020/07/27 09:04:21 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	envLen(char *str)
-{
-	int x;
-
-	x = 0;
-	(void)str;
-	while (Data[x])
-	{
-		x++;
-	}
-	return (x);
-}
-
-static size_t Len(char **Data)
+static size_t	envLen(char **Data)
 {
 	int x;
 
@@ -37,50 +24,38 @@ static size_t Len(char **Data)
 	return (x);
 }
 
-static char **memory(int indexof)
+void env_copy(char **env)
 {
-	int i;
-	char **store;
+	int x;
 
-	i = -1;
-
-	store = (char **)malloc(sizeof(char *) * (indexof + 1));
-
-	while (Data[++i] && i < indexof)
+	x = 0;
+	while(Data[x] != NULL)
 	{
-		store[i] = ft_strdup(Data[i]);
+		env[x] = Data[x];
+		x++;
 	}
-	return (store);
+	env[x] = NULL;
 }
 
-void	env_setup(char *str, char *envval)
+void env_setup(char *str, char *envval)
 {
 	char *tmp;
-	int i;
+	char **store;
 
-	i = envLen(str);
-	tmp = ft_strjoin("=", envval);
-	if (Data[i])
-	{
-		free(Data[i]);
-		if (envval)
-			Data[i] = ft_strjoin(str, tmp);
-	}
-	else
-	{
-		Data = memory(i + 1);
-		if (envval)
-		{
-			Data[i] = ft_strjoin(str, tmp);
-		}
-		Data[i + 1] = NULL;
-	}
-	free(tmp);
+
+	store = (char **)malloc(sizeof(char *) * (envLen(Data) + 1));
+	env_copy(store);
+	free(Data);
+	Data = NULL;
+	Data = store;
+	tmp = ft_strjoin(str, ft_strjoin("=", envval));
+	Data[envLen(Data) + 1] = NULL;
+	Data[envLen(Data)] = tmp;
 }
 
 int checkStr(char **str)
 {
-	if (Len(str) != 3)
+	if (envLen(str) != 3)
 	{
 		ft_putendl("setenv : \033[0mtoo few or many arguments\36m ");
 		return (1);
@@ -88,4 +63,3 @@ int checkStr(char **str)
 	env_setup(str[1], str[2]);
 	return (0);
 }
-
