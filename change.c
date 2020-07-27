@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 13:17:40 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/27 14:56:24 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:34:58 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ char	*Get_cd(char *str)
 		tmp = ft_strjoin(str, "=");
 		if (compare(Data[i], tmp) == 1)
 		{
+			free(tmp);
 			return (ft_strchr(Data[i], '=') + 1);
 		}
+		free(tmp);
 		i++;
 	}
 	return (NULL);
@@ -89,7 +91,6 @@ int set_cd(char **str)
 	}
 	else
 	{
-		ft_putendl("working");
 		swipe(str[0]);
 	}
 	return (1);

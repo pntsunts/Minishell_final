@@ -6,7 +6,7 @@
 /*   By: pntsunts <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 10:59:37 by pntsunts          #+#    #+#             */
-/*   Updated: 2020/07/27 14:55:34 by pntsunts         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:54:52 by pntsunts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int check_args(char **str)
 	else if (ft_strcmp(str[0], "cd") == 0)
 	{
 		set_cd(str + 1);
-		//swipe(str[1]);
 		return (1);
 	}
 	else if (ft_strcmp(*str, "setenv") == 0)
@@ -116,10 +115,12 @@ static void	readFiles(void)
 		str = getLines();
 		arg = split(str);
 		run = check_args(arg);
-		free(str);
-		free_str(arg);
 		if (run < 0)
+		{
+			free(str);
+			free_str(arg);
 			return;
+		}
 	}
 }
 
